@@ -20,6 +20,9 @@ export default function Index(){
                return Alert.alert("Quantidade","A quantidade precisa ser um numero")
             }
         const response = await productDatabase.create({name, quantity:Number(quantity)})
+
+
+        list()
         Alert.alert("Produto cadastrado com o ID: " + response.insertedRowId)
         } catch(error){
             console.log(error)
@@ -51,6 +54,7 @@ export default function Index(){
             data={products}
             keyExtractor={(item)=>String(item.id)}
             renderItem={({item})=><Product data={item} />}
+            contentContainerStyle={{gap: 16}}
         />
     </View>
     )

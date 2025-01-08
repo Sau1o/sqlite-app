@@ -10,7 +10,15 @@ type Props = PressableProps & {
   }
 
 export function Product ({ data, ...rest }: Props){
-    return <Pressable {...rest}>
+    return <Pressable
+    style={{
+        backgroundColor: "#CECECE",
+        padding: 24,
+        borderRadius: 5,
+        gap: 12,
+        flexDirection: "row",
+      }}
+    {...rest}>
         <Text> {data.quantity} - {data.name}</Text>
     </Pressable>
 }
