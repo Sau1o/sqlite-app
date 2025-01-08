@@ -1,14 +1,16 @@
 import { Input } from '@/components/Input'
-import { useState } from 'react'
-import {View, Button, Alert} from 'react-native'
+import { useState, useEffect } from 'react'
+import {View, Button, Alert, FlatList} from 'react-native'
 
-import {useProductDatabase} from "@/database/useProductDatabase"
+import {useProductDatabase, ProductDatabase} from "@/database/useProductDatabase"
+import { Product } from '@/components/Producti'
 
 export default function Index(){
     const [id,setId] = useState("")
     const [name,setName] = useState("")
+    const [search,setSearch] = useState("")
     const [quantity, setQuantity] = useState("")
-    const [products, setProducts] = useState([])
+    const [products, setProducts] = useState<ProductDatabase[]>([])
 
     const productDatabase = useProductDatabase()
 
@@ -24,12 +26,32 @@ export default function Index(){
         }
     }
 
+    async function  list() {
+        try{
+            const response = await productDatabase.searchByName(search)
+            setProducts(response)
+        }catch{
+
+        }
+    }
+
+    useEffect(()=> {
+        list()
+    },[search])
+
     return (
     <View style={{flex: 1, justifyContent:"center", padding: 32, gap: 16}}>
         <Input placeholder='Nome' onChangeText={setName} value={name}/>
         <Input placeholder='Quantidade' onChangeText={setQuantity} value={quantity}/>
 
         <Button title="Salvar" onPress={create}/>
+
+
+        <FlatList 
+            data={products}
+            keyExtractor={(item)=>String(item.id)}
+            renderItem={({item})=><Product data={item} />}
+        />
     </View>
     )
 }
