@@ -49,6 +49,7 @@ export default function Index(){
 
         <Button title="Salvar" onPress={create}/>
 
+        <Input placeholder='Pesquisar' onChangeText={setSearch} />
 
         <FlatList 
             data={products}
