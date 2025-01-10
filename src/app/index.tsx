@@ -29,6 +29,25 @@ export default function Index(){
         }
     }
 
+    async function update(){
+        try{
+            if(isNaN(Number(quantity))){
+               return Alert.alert("Quantidade","A quantidade precisa ser um numero")
+            }
+        const response = await productDatabase.update({
+            id:Number(id),
+            name, 
+            quantity:Number(quantity),
+        })
+
+
+        list()
+        Alert.alert("Produto cadastrado com o ID: " + response.insertedRowId)
+        } catch(error){
+            console.log(error)
+        }
+    } 
+
     async function  list() {
         try{
             const response = await productDatabase.searchByName(search)
@@ -37,6 +56,13 @@ export default function Index(){
 
         }
     }
+
+    function details (item: ProductDatabase){
+        setName(item.name)
+        setQuantity(String(item.quantity))
+        setId(String(item.id))
+    }
+
 
     useEffect(()=> {
         list()
@@ -54,7 +80,7 @@ export default function Index(){
         <FlatList 
             data={products}
             keyExtractor={(item)=>String(item.id)}
-            renderItem={({item})=><Product data={item} />}
+            renderItem={({item})=><Product data={item} onPress={() => details(item)}/>}
             contentContainerStyle={{gap: 16}}
         />
     </View>
