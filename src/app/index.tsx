@@ -21,8 +21,6 @@ export default function Index(){
             }
         const response = await productDatabase.create({name, quantity:Number(quantity)})
 
-
-        list()
         Alert.alert("Produto cadastrado com o ID: " + response.insertedRowId)
         } catch(error){
             console.log(error)
@@ -40,8 +38,6 @@ export default function Index(){
             quantity:Number(quantity),
         })
 
-
-        list()
         Alert.alert("Produto cadastrado com o ID: " + response.insertedRowId)
         } catch(error){
             console.log(error)
@@ -63,6 +59,18 @@ export default function Index(){
         setId(String(item.id))
     }
 
+    async function handleSave(){
+        if(id){
+            update()
+        }else{
+            create()
+        }
+
+        setId("")
+        setName("")
+        setQuantity("")
+        await list()
+    }
 
     useEffect(()=> {
         list()
@@ -73,7 +81,7 @@ export default function Index(){
         <Input placeholder='Nome' onChangeText={setName} value={name}/>
         <Input placeholder='Quantidade' onChangeText={setQuantity} value={quantity}/>
 
-        <Button title="Salvar" onPress={create}/>
+        <Button title="Salvar" onPress={handleSave}/>
 
         <Input placeholder='Pesquisar' onChangeText={setSearch} />
 

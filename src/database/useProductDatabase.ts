@@ -44,7 +44,7 @@ export function useProductDatabase(){
 
     async function update(data: ProductDatabase){
         const statement = await database.prepareAsync(
-            "UPDATE products SET name = $name, quantity = $quantity, WHERE id = $id"
+            "UPDATE products SET name = $name, quantity = $quantity WHERE id = $id"
         )
 
         try{
