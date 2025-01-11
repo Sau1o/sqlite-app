@@ -44,13 +44,24 @@ export default function Index(){
         }
     } 
 
-    async function  list() {
+    async function list() {
         try{
             const response = await productDatabase.searchByName(search)
             setProducts(response)
         }catch{
 
         }
+    }
+
+    async function remove(id:number){
+        try{
+            await productDatabase.remove(id)
+            await list()
+            Alert.alert("Produto Removido com Sucesso.")
+        }catch(error){
+            console.log(error)
+        }
+
     }
 
     function details (item: ProductDatabase){
@@ -88,7 +99,13 @@ export default function Index(){
         <FlatList 
             data={products}
             keyExtractor={(item)=>String(item.id)}
-            renderItem={({item})=><Product data={item} onPress={() => details(item)}/>}
+            renderItem={({item})=>(
+                <Product   
+                    data={item} 
+                    onPress={() => details(item)} 
+                    onDelete={()=>remove(item.id)}
+                />
+            )}
             contentContainerStyle={{gap: 16}}
         />
     </View>

@@ -1,4 +1,4 @@
-import { Pressable, PressableProps, Text } from "react-native";
+import { Pressable, PressableProps, Text, TouchableOpacity } from "react-native";
 import {MaterialIcons} from '@expo/vector-icons'
 
 type Props = PressableProps & {
@@ -6,11 +6,11 @@ type Props = PressableProps & {
       name: string
       quantity: number
     }
-    // onDelete: () => void
+    onDelete: () => void
     // onOpen: () => void
   }
 
-export function Product ({ data, ...rest }: Props){
+export function Product ({ data, onDelete, ...rest }: Props){
     return <Pressable
     style={{
         backgroundColor: "#CECECE",
@@ -21,6 +21,8 @@ export function Product ({ data, ...rest }: Props){
       }}
     {...rest}>
         <Text style={{flex:1}}> {data.quantity} - {data.name}</Text>
-        <MaterialIcons name="delete" size={24} color="red"/>
+        <TouchableOpacity onPress={onDelete}>
+          <MaterialIcons name="delete" size={24} color="red"/>
+        </TouchableOpacity>
     </Pressable>
 }
