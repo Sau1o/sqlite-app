@@ -38,7 +38,7 @@ export default function Index(){
             quantity:Number(quantity),
         })
 
-        Alert.alert("Produto cadastrado com o ID: " + response.insertedRowId)
+        Alert.alert("Produto Atualizado.")
         } catch(error){
             console.log(error)
         }
