@@ -56,6 +56,9 @@ export default function Index(){
     async function remove(id:number){
         try{
             await productDatabase.remove(id)
+            setId("")
+            setName("")
+            setQuantity("")
             await list()
             Alert.alert("Produto Removido com Sucesso.")
         }catch(error){
@@ -92,7 +95,7 @@ export default function Index(){
         <Input placeholder='Nome' onChangeText={setName} value={name}/>
         <Input placeholder='Quantidade' onChangeText={setQuantity} value={quantity}/>
 
-        <Button title="Salvar" onPress={handleSave}/>
+        <Button title={id ? "Atualizar" : "Salvar"} onPress={handleSave}/>
 
         <Input placeholder='Pesquisar' onChangeText={setSearch} />
 
