@@ -1,6 +1,7 @@
 import { Input } from '@/components/Input'
 import { useState, useEffect } from 'react'
 import {View, Button, Alert, FlatList} from 'react-native'
+import { router } from 'expo-router'
 
 import {useProductDatabase, ProductDatabase} from "@/database/useProductDatabase"
 import { Product } from '@/components/Producti'
@@ -107,6 +108,7 @@ export default function Index(){
                     data={item} 
                     onPress={() => details(item)} 
                     onDelete={()=>remove(item.id)}
+                    onOpen={() => router.navigate("/details/" + item.id)}
                 />
             )}
             contentContainerStyle={{gap: 16}}

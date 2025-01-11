@@ -68,5 +68,15 @@ export function useProductDatabase(){
       } 
     }
 
-    return{create, searchByName, update, remove}
+    async function show(id:number){
+        try{
+           const query = "SELECT * FROM products WHERE id = ?"
+           const response =  await database.getFirstAsync<ProductDatabase>(query, [id])
+           return response
+        }catch(error){
+            throw error
+        }
+    }
+
+    return{create, searchByName, update, remove, show}
 }
